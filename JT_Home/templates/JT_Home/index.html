@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}JITUME HOMEPAGE{% endblock title %}
+{% block nav_links %}
+{% if request.user.is_authenticated %}
+<li class="nav-item">
+    <a class="nav-link text-light bg-secondary rounded-pill" aria-current="page" href="#">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+            <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+            <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+        </svg>
+        SIGNED IN 
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active text-warning" aria-current="page" href="{% url "account_logout" %}">SIGN OUT</a>
+</li>
+{% else %}
+<li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="{% url "account_signup" %}">SIGN UP</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="{% url "account_login" %}">SIGN IN</a>
+</li>
+{% endif %}
+
+{% endblock nav_links %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+
+<div class="row">
+    <h4>BIDS</h4>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <h4>Pending Bids</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <h4>Accepted Bids</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-3">
+    <h4>FINANCES</h4>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <h4>Total Amount Recieved</h4>
+                        <div class="row">
+                            <div class="col-6">
+                                <p>Date: {{payments.date}}</p>
+                                <p>Amount Paid: Ksh. {{payments.amount_paid}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <h4>Deductions</h4>
+                        <div class="row">
+                            <div class="col-6">
+                                <p>Savings</p>
+                                <p>Ksh. {{savings}}</p>
+                            </div>
+                            <div class="col-6">
+                                <p>Hub deductions</p>
+                                <p>Ksh. {{hub_deductions}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-3">
+    <h4>WORK INFO</h4>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <h5>Job Filters</h5>
+                        {% for key,value in work_category.items %}
+                        <p>{{key}}</p>
+                        <hr>
+                        {% for each in value %}
+                            <p class="form-text">{{each}}</p>
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                    <hr>
+                    <div class="col-12">
+                        <p>Experience level: {{exp_level}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock content %}

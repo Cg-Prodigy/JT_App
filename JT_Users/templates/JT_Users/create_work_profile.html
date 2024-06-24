@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Work Profile{% endblock title %}
+{% block content %}
+
+<div class="row justify-content-center align-items-center" style="height:100dvh">
+    <div class="col-11 card p-3">
+        <div class="card-body">
+            <h4 class="card-title">Work Profile Details</h4>
+            <hr>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="my-1">
+                    <label for="job-category" class="form-label">Work Category</label>
+                    <select id="job-category" class="form-select" name="job-category">
+                        <option value="">------</option>
+                    </select>
+                    <p class="form-text">Select at most 3 categories </p>
+                    <div id="selected-categories" class="mt-1"></div>
+                </div>
+                <div class="my-1">
+                    <p>Work Sub-Category</p>
+                    <div class="row" id="category-subs">
+                    </div>
+                    <hr>
+                    <div id="selected-sub-categories">
+                        <p>Selected Sub-Categories</p>
+                    </div>
+                    <hr>
+                </div>
+                <div class="my-1">
+                    <label for="experience" class="form-label">Experience Level</label>
+                    <select id="experience" name="experience" class="form-select"></select>
+                </div>
+                <input type="text" class="d-none" id="c-values" name="c-values"></input>
+                <button class="btn btn-secondary rounded-pill float-end mt-2" type="button" id="submit-btn">Save Details</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block js_links %}
+<script src="{% static "JT_Users/js/work_profile.js" %}" type="module"></script>
+{% endblock js_links %}
